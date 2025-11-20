@@ -37,6 +37,11 @@ public class DeckManager : MonoBehaviour
     public Transform[] cardPos;
     public Sprite[] cardSprites;
 
+    [Header("Configurações de Áudio")]
+    public AudioClip somDestruicao;
+    public AudioClip sombom;
+    public float volume = 1.0f;
+    public AudioSource audioSource;
 
     //evento que dispara para quem estiver escutando
     public static event Action<float> OnChangeProgressBar;
@@ -64,6 +69,8 @@ public class DeckManager : MonoBehaviour
         if (perdeu == true)
         {
             Destroy(currentCard);
+
+
         }
     }
 
@@ -131,7 +138,8 @@ public class DeckManager : MonoBehaviour
         HandleDecision(decision, index);
         Destroy(card.gameObject, 0.5f);
         SpawnNextCard(index);
-
+        //som
+        audioSource.PlayOneShot(somDestruicao);
     }
     #region HandleDecison
     private void HandleDecision(SwipeDecision decision, int index)
